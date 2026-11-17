@@ -1,0 +1,74 @@
+
+print("=== CALCULADORA DE ABASTECIMENTO ===")
+
+while True:
+
+    print("\nComo você quer abastecer?")
+    print("1 - Por litro")
+    print("2 - Por valor")
+    print("3 - Por distância (km que vou andar)")
+    print("4 - Comparar gasolina e etanol")
+
+    forma = int(input("Escolha: "))
+
+    if forma not in (1, 2, 3, 4):
+        print("Opção inválida!")
+
+    elif forma == 4:
+
+        print("\n=== COMPARADOR DE COMBUSTÍVEIS ===")
+
+        gasolina = float(input("Preço da gasolina por litro: R$ ").replace(",", "."))
+        etanol = float(input("Preço do etanol por litro: R$ ").replace(",", "."))
+        valor = float(input("Quanto você pretende gastar? R$ ").replace(",", "."))
+
+        litros_gasolina = valor / gasolina
+        litros_etanol = valor / etanol
+
+        print("\n=== RESULTADO DA COMPARAÇÃO ===")
+        print(f"Com gasolina: {litros_gasolina:.2f} litros")
+        print(f"Com etanol: {litros_etanol:.2f} litros")
+        print(f"Diferença: {abs(litros_gasolina - litros_etanol):.2f} litros")
+
+        if litros_gasolina > litros_etanol:
+            print("Com o mesmo valor, você abastece mais litros de gasolina.")
+        elif litros_etanol > litros_gasolina:
+            print("Com o mesmo valor, você abastece mais litros de etanol.")
+        else:
+            print("Os dois combustíveis oferecem a mesma quantidade de litros.")
+
+    else:
+
+        preco_litro = float(input("Qual o preço da gasolina por litro? R$ ").replace(",", "."))
+
+        consumo_txt = input("Quantos km o carro faz por litro? (Enter para usar 9,5): ").strip()
+        consumo = float(consumo_txt.replace(",", ".")) if consumo_txt else 9.5
+
+        if forma == 1:
+
+            litros = float(input("Quantos litros você quer colocar? ").replace(",", "."))
+            valor = litros * preco_litro
+            km = litros * consumo
+
+        elif forma == 2:
+
+            valor = float(input("Quanto você quer gastar? R$ ").replace(",", "."))
+            litros = valor / preco_litro
+            km = litros * consumo
+
+        else:
+
+            km = float(input("Quantos km você vai andar? ").replace(",", "."))
+            litros = km / consumo
+            valor = litros * preco_litro
+
+        print("\n=== RESULTADO ===")
+        print(f"Litros abastecidos: {litros:.2f} L")
+        print(f"Valor do abastecimento: R$ {valor:.2f}")
+        print(f"Autonomia aproximada: {km:.2f} km")
+
+    novamente = input("\nDeseja realizar outra operação? (S/N): ").strip().upper()
+
+    if novamente != "S":
+        print("\nObrigado por utilizar a calculadora!")
+        break
